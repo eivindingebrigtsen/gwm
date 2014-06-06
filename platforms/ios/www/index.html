@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <title></title>
+
+  <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+  -->
+
+  <!-- ionic/angularjs js -->
+  <script src="lib/jquery/dist/jquery.js"></script>
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
+  <script src="lib/localforage/dist/localforage.js"></script>
+  <script src="lib/angular-localForage/dist/angular-localForage.js"></script>
+  <script src="lib/highcharts/highcharts.js"></script>
+  <script src="lib/angular-highcharts/dist/angular-highcharts.js"></script>
+
+  <!-- cordova script (this will be a 404 during development) -->
+  <script src="cordova.js"></script>
+
+  <!-- your app's js -->
+  <script src="js/app.js"></script>
+</head>
+<body ng-app="starter">
+  <div  ng-controller="StatusCtrl">
+    <ion-pane>
+    <ion-header-bar class="bar-stable" ng-show="!scannedOrder && loggedIn">    
+    <h1 class="title" ng-hide="!loggedIn"><span class="icon-gelato"></span></h1>
+  </ion-header-bar>
+  <ion-content>
+  <div>
+    <div class="login-form" ng-hide="loggedIn || loading">
+      <h1 class="text-center"><span class="icon-gelato"></span></h1>
+      <div class="form-group">
+        <label class="item item-input">
+          <span class="input-label">Email</span>
+          <input type="email" id="email" placeholder="Email address" class="form-control"> 
+        </label>
+      </div>
+      <div class="form-group">
+        <label class="item item-input">
+          <span class="input-label">Password</span>
+          <input type="password" id="password" placeholder="Password" class="form-control"> 
+        </label>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary btn-block" ng-click="login()">Login</button>
+      </div>
+    </div>
+
+    <div ng-hide="!loggedIn || loading || scannedOrder">
+    <br>
+    <br>
+    <br>
+      <button class="btn btn-primary btn-block" ng-click="scan()">Scan</button>
+    </div>
+    <!--div class="status-container" ng-hide="!loggedIn || loading || scannedOrder">
+      <highchart id="chart1" config="chartConfig"></highchart>
+      <hr>
+      <ul class="statusnumbers">
+        <li class="col-xs-6">
+          <span>{{numbers.today.firstscan}}&nbsp;</span>
+          <small>First scan</small>
+        </li>
+        <li class="col-xs-6">
+          <span>{{numbers.today.lastscan}}&nbsp;</span>
+          <small>Last scan</small>
+        </li>
+
+
+
+        <li class="col-xs-6 col-sm-4 col-md-3">
+          <span>{{numbers.today.sheets}}&nbsp;</span>
+          <small>Sheets printed</small>
+        </li>
+
+        <li class="col-xs-6 col-sm-4 col-md-3">        
+          <span>{{numbers.today.coated}}&nbsp;</span>
+          <small>Sheets coated</small>
+        </li>        
+        <li class="col-xs-6 col-sm-4 col-md-3">
+          <span>{{numbers.today.folded}}&nbsp;</span>
+          <small>Folded Jobs</small>
+        </li>
+        <li class="col-xs-6 col-sm-4 col-md-3">        
+          <span>{{numbers.today.percent_4_4}}%&nbsp;</span>
+          <small>4-4</small>
+        </li>                
+        <li class="col-xs-6 col-sm-4 col-md-3">        
+          <span>{{numbers.today.percent_4_0}}%&nbsp;</span>
+          <small>4-0</small>
+        </li>
+      </ul>
+      <hr>
+      <ul class="statusnumbers">        
+        <li class="col-xs-6 col-sm-4 col-md-3" ng-repeat="(key, value) in numbers.formats">
+          <span>{{value.jobs}}</span>
+          <small>{{value.name}}</small>
+        </li>
+      </ul>
+      <ul class="statusnumbers">        
+        <li class="col-xs-6 col-sm-4 col-md-3" ng-repeat="(key, value) in numbers.papers">
+          <span>{{value.jobs}}</span>
+          <small>{{value.name}}</small>
+        </li>
+      </ul>
+
+
+    </div-->
+
+
+    <!--  ORDER DETAILS  -->
+    <div ng-show="scannedOrder != null" class="order-details" animation="slide-left-right">
+      <span class="pull-right icon-cancel" ng-click="closeOrder()"></span>
+      <div class="clearfix">
+        <p><strong>Order {{ scannedOrder.customer_order_id }}</strong></p>
+        <dl>
+          <dt>Ordered by</dt>
+          <dd>{{ scannedOrder.customer_email }}</dd>
+          <dt>Date:</dt>
+          <dd>{{ scannedOrder.last_modified_verbal | date:'d MMM yyyy, H:mm' }}</dd>
+          <dt ng-show="scannedOrder.tracking">Tracking #</dt>
+          <dd ng-show="scannedOrder.tracking">
+            <a ng-href="{{ scannedOrder.tracking.1.url }}" target="_blank">{{ scannedOrder.tracking.1.code }}</a>
+          </dd>
+        </dl>
+
+        <div class="clearfix">
+          <p><strong>Sending to:</strong></p>
+          <address class="single-line-content">
+            <p ng-show="scannedOrder.shipmentAddress.full_name">{{ scannedOrder.shipmentAddress.full_name }}</p>
+            <p ng-show="scannedOrder.shipmentAddress.company">{{ scannedOrder.shipmentAddress.company }}</p>
+            <p ng-show="scannedOrder.shipmentAddress.address_line_1">{{ scannedOrder.shipmentAddress.address_line_1 }}</p>
+            <p ng-show="scannedOrder.shipmentAddress.address_line_2">{{ scannedOrder.shipmentAddress.address_line_2 }}</p>
+            <p>{{ scannedOrder.shipmentAddress.zip }} {{ scannedOrder.shipmentAddress.city }}<span ng-show="scannedOrder.county">, {{ scannedOrder.shipmentAddress.county }}</span></p>
+
+            <!-- ng-show="'NO'" will not display the line, so we need something smarter -->
+            <p ng-show="scannedOrder.shipmentAddressCountryName">{{ scannedOrder.shipmentAddressCountryName }}</p>
+            <p ng-show="scannedOrder.shipmentAddress.phone">Phone {{ scannedOrder.shipmentAddress.phone }}</p>
+            <p ng-show="scannedOrder.shipmentAddress.company_vat_number"><strong>{{ scannedOrder.shipmentAddress.company_vat_number }}</strong></p>
+          </address>
+          <p><a ng-click="changeAddress()" class="btn btn-default">Change Address</a></p>
+          <p><strong>Shipping with:</strong></p>
+          <p>{{scannedOrder.shipment_method_id}}</p>
+        </div>
+        <p><strong>Items in Order:</strong></p>
+        <div class="media" ng-repeat="item in scannedOrder.items">
+          <img ng-src="{{ item.design.previews.thumbnail.1 }}" />
+          <p>
+            <span ng-if="!item.design.previews.thumbnail.3">{{item.entity.quantity}} pieces </span>
+            <span ng-if="item.design.previews.thumbnail.3">{{item.entity.quantity}} pieces </span>
+            {{item.finalSize}}<br>
+            {{item.paperFormatEntity.final_width}} &times; {{item.paperFormatEntity.final_height}} {{item.paperFormatEntity.unit}}<br>
+            {{item.paperTypeEntity.name}} {{item.paperTypeEntity.description}}<br>
+            <span ng-show="item.is_low_resolution">Resolution check was ignored
+            </span>
+            <span ng-show="item.is_bleed_missing">Bleed check was ignored
+            </span>
+          </p>
+        </div>
+      </div>
+      <hr class="blank">
+      <p ng-repeat="el in scannedOrder.history"><span class="label label-info">{{el.status}}</span> {{el.comment}} <small>{{el.created_at}}</small></p>
+
+      <hr>
+      <p>
+        <a ng-click="cancelOrder()" class="btn btn-default">Cancel Order</a>
+        <a ng-click="markAsDone()" class="btn btn-default">Mark as Done</a>
+      </p>
+      <hr>
+    </div>
+  </div>
+  <div id="processing" ng-show="loading">
+    <p class="text-center"><span class="icon-gelato"></span></p>
+  </div>
+</div>
+</ion-content>
+</ion-pane>
+</div>
+</body>
+</html>

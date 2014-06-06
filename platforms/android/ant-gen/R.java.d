@@ -1,0 +1,23 @@
+/Users/eivindingebrigtsen/Projects/waveMobile/platforms/android/ant-gen/com/gelatowave/mobile/R.java \
+ : /Users/eivindingebrigtsen/Projects/waveMobile/platforms/android/res/drawable/flashbuttonoff.png \
+/Users/eivindingebrigtsen/Projects/waveMobile/platforms/android/res/drawable/flashbuttonon.png \
+/Users/eivindingebrigtsen/Projects/waveMobile/platforms/android/res/drawable/icon.png \
+/Users/eivindingebrigtsen/Projects/waveMobile/platforms/android/res/drawable/overlay.png \
+/Users/eivindingebrigtsen/Projects/waveMobile/platforms/android/res/drawable-hdpi/icon.png \
+/Users/eivindingebrigtsen/Projects/waveMobile/platforms/android/res/drawable-hdpi/overlay.png \
+/Users/eivindingebrigtsen/Projects/waveMobile/platforms/android/res/drawable-ldpi/icon.png \
+/Users/eivindingebrigtsen/Projects/waveMobile/platforms/android/res/drawable-mdpi/icon.png \
+/Users/eivindingebrigtsen/Projects/waveMobile/platforms/android/res/drawable-xhdpi/icon.png \
+/Users/eivindingebrigtsen/Projects/waveMobile/platforms/android/res/layout/scanner.xml \
+/Users/eivindingebrigtsen/Projects/waveMobile/platforms/android/res/values/strings.xml \
+/Users/eivindingebrigtsen/Projects/waveMobile/platforms/android/res/xml/config.xml \
+/Users/eivindingebrigtsen/Projects/waveMobile/platforms/android/ant-build/res/drawable/flashbuttonoff.png \
+/Users/eivindingebrigtsen/Projects/waveMobile/platforms/android/ant-build/res/drawable/flashbuttonon.png \
+/Users/eivindingebrigtsen/Projects/waveMobile/platforms/android/ant-build/res/drawable/icon.png \
+/Users/eivindingebrigtsen/Projects/waveMobile/platforms/android/ant-build/res/drawable/overlay.png \
+/Users/eivindingebrigtsen/Projects/waveMobile/platforms/android/ant-build/res/drawable-hdpi/icon.png \
+/Users/eivindingebrigtsen/Projects/waveMobile/platforms/android/ant-build/res/drawable-hdpi/overlay.png \
+/Users/eivindingebrigtsen/Projects/waveMobile/platforms/android/ant-build/res/drawable-ldpi/icon.png \
+/Users/eivindingebrigtsen/Projects/waveMobile/platforms/android/ant-build/res/drawable-mdpi/icon.png \
+/Users/eivindingebrigtsen/Projects/waveMobile/platforms/android/ant-build/res/drawable-xhdpi/icon.png \
+/Users/eivindingebrigtsen/Projects/waveMobile/platforms/android/ant-build/AndroidManifest.xml \
