@@ -4,6 +4,8 @@ node_modules
 *.log
 *.tmp
 *.tmp.*
+*.app
+*.apk
 log.txt
 example/cordova/iOS/www/js/framework
 
